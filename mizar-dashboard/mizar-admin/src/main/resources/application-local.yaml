@@ -1,0 +1,40 @@
+server:
+  port: 8083 #tomcat端口
+spring:
+  application:
+    name: mizar
+  mvc:
+    static-path-pattern: /static/**
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver #数据库驱动
+    url: jdbc:mysql://xxxxx.xxxxx.xxx:3306/mizar?useUnicode=true&characterEncoding=utf8&characterResultSets=utf8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&useSSL=false&useAffectedRows=true
+    username: xxx
+    password: xxxx
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5 # 初始连接数
+      min-idle: 10 # 最小连接池数量
+      max-active: 20 # 最大连接池数量
+      max-wait: 600000 # 配置获取连接等待超时的时间，单位：毫秒
+      time-between-eviction-runs-millis: 60000 # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位：毫秒
+      min-evictable-idle-time-millis: 300000 # 配置一个连接在池中最小生存的时间，单位：毫秒
+      max-evictable-idle-time-millis: 900000 # 配置一个连接在池中最大生存的时间，单位：毫秒
+      validation-query: SELECT 1 # 配置检测连接是否有效
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  type-aliases-package: com.tcxhb.mizar.dao.dataobject #这个配置的目的是告诉mybatis-Plus 数据库表与java实体对应的包位置，
+  mapper-locations: classpath:mapper/*Mapper.xml  #这个是告诉mybatis-Plus 扫描 Mapper.xml的位置
+  check-config-location: true #是否执行MyBatis xml配置文件的状态检查, 只是检查状态
+
+#应用名称job配置
+mizar.agent:
+  serverHost: http://127.0.0.1:8083
+  appName: mizar-dashbord
